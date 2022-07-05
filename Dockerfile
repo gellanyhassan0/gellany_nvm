@@ -92,20 +92,11 @@ RUN echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm' >> 
 RUN echo '[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion" # This loads nvm bash_completion' >> "$HOME/.bashrc"
 
 # nodejs and tools
-RUN bash -c 'source $HOME/.nvm/nvm.sh   && \
-    nvm install node                    && \
-    npm install -g doctoc urchin eclint dockerfile_lint && \
-    npm install --prefix "$HOME/.nvm/"' && \
-    npm install -g yarn && \
-    yarn global add create-react-app && \
-    create-react-app my-app && \
-    cd my-app && \
-    npm start 
 
-# Set WORKDIR to nvm directory
-WORKDIR /home/nvm/.nvm
+WORKDIR /home/nvm/
 
-ENTRYPOINT ["/bin/bash"]
-
+RUN git clone https://github.com/gellanyhassan0/gellany_react.git 
+RUN chmod +x gellany_react.sh
+RUN ./gellany_react.sh
 
 CMD python3 -c "import signal; signal.pause()"
